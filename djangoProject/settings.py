@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 from django.template.context_processors import media
 
@@ -90,15 +91,20 @@ WSGI_APPLICATION = "djangoProject.wsgi.application"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nova',
-        'USER': 'juichilee',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if 'DATABASE_URL' in os.environ:
+    # heroku
+    DATABASES = {'default': dj_database_url.config()}
+else:
+    # local machine
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'nova',
+            'USER': 'juichilee',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
