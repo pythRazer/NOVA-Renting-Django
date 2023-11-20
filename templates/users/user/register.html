@@ -1,0 +1,32 @@
+{%  extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href={% static "css/login.css" %}>
+
+   <div id="login-section">
+       <form id="login-box" action="{% url "users:register" %}" method="POST">
+        {% csrf_token %}
+           <h2>Register</h2>
+           {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+        <label>
+            Name:
+            <input type="text" name="register-username" placeholder="Username" required>
+        </label>
+           <label>Email Address:
+            <input type="email" name="register-email" placeholder="Email" required>
+        </label>
+        <label>
+            Password:
+            <input type="password" name="register-password" placeholder="Password" required>
+        </label>
+        <input type="submit" name="submit" value="Register">
+    </form>
+   </div>
+
+
+{% endblock %}

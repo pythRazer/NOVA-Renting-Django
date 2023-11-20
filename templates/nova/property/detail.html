@@ -1,0 +1,265 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+{% load humanize %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href={% static "css/detail.css" %}>
+    {#    Property Name: {{ property.house_name}}#}
+
+    {#    <h3>Delete property</h3>#}
+    {#    {% if request.session.role == 'admin' %}#}
+    {#        <form class="delete-form" method="POST" actions="{% url "nova:delete-property" property.id %}">#}
+    {#            {% csrf_token %}#}
+    {#            <input type="submit" class="delete-btn"#}
+    {#                   onclick="return confirm('Are you sure you want to delete this property?');"#}
+    {#                   value="Delete">#}
+    {#        </form>#}
+    {#    {% endif %}#}
+
+
+    <!--    Grid blocks for images 3 X 2-->
+    <div id="house-images-section">
+        <img id="main-image" src="{{ property.photo.url }}"
+             alt="building">
+
+        <!--        The pictures of the houses are from a website for free, public accessible photos https://unsplash.com/s/photos/house-->
+
+        {#        <img class="detail-image" src="img/houses/house-detail-1.jpg" alt="wonderful-land-building">#}
+        {#        <img class="detail-image" src="img/houses/house-detail-2.jpg" alt="wonderful-land-building">#}
+        {#        <img class="detail-image" src="img/houses/house-detail-3.jpg" alt="wonderful-land-building">#}
+        {#        <img class="detail-image" src="img/houses/house-detail-4.jpg" alt="wonderful-land-building">#}
+        {#        <img class="detail-image" src="img/houses/house-detail-5.jpg" alt="wonderful-land-building">#}
+
+    </div>
+
+    <!--    Add to wish list-->
+    {#    {% if request.session.username %}#}
+    {#        <h4>Wish list <img class="wish-icon" src={% static "img/heart-plus.svg" %} alt="heart"></h4>#}
+    {#    {% endif %}#}
+
+
+
+    <!--    House detail sections contains more information-->
+    <div id="house-detail-section">
+{#        <img class="star" src={% static "img/star-solid.svg" %} alt="star">#}
+{#        {% if property.average_rating %}#}
+{#            {{ property.average_rating|floatformat:1 }}#}
+{#            <hr>#}
+{#        {% else %}#}
+{#            No ratings yet#}
+{#            <hr>#}
+{#        {% endif %}#}
+
+
+        <h4 class="verify"></h4>
+        {% if property.is_verified %}
+            <img class="badge" src={% static "img/badge_check_icon.svg" %} alt="badge"> Verified
+        {% else %}
+            Not Verified
+        {% endif %}
+
+
+        <h4 class="availability">
+            {% if property.availability %}
+                Open
+            {% else %}
+                Full
+            {% endif %}
+        </h4>
+
+        <h1 id="house-name">{{ property.house_name }}</h1>
+
+        <!--        The first part contain address and post information-->
+        <div id="first-part">
+            <p> {{ property.address }}</p>
+            <h4>Posted By <a href="{% url 'users:profile' property.user.username %}">{{ property.user.username }}</a>
+            </h4>
+
+            <p>{{ property.date_posted|naturaltime }}</p>
+
+        </div>
+        <div id=" info">
+            <!--        The second part contain costs, room-related information and others-->
+            <div id="second-part">
+
+                <div id="costs-related">
+                    <div class="detail-items"><h4>Monthly Costs: </h4> <h4
+                            class="info"> {{ property.rent_cost }}</h4>
+                    </div>
+                    <div class="detail-items"><h4>Initial Cost: </h4> <h4
+                            class="info">{{ property.initial_fee }}</h4>
+                    </div>
+                    <div class="detail-items"><h4>First Month: </h4> <h4 class="info"> {{ property.rent_cost }}
+                        + {{ property.initial_fee }}</h4></div>
+
+                </div>
+
+
+                <div class="detail-items"><h4>Beds: </h4> <h4 class="info"> {{ property.bedrooms_count }}</h4></div>
+                <div class="detail-items"><h4>Baths: </h4> <h4 class="info"> {{ property.bathrooms_count }}</h4>
+                </div>
+                <div class="detail-items"><h4>Size </h4> <h4 class="info"> {{ property.size }} Sq Ft</h4></div>
+                <div class="detail-items"><h4>Floor: </h4> <h4 class="info"> {{ property.floor }}</h4></div>
+
+
+                {#                <div class="detail-items"><h4 id="finding-roommate-message">{{ property.finding_rm }} people are finding#}
+                {#                    a#}
+                {#                    roommate</h4></div>#}
+                _________________________________
+                {##}
+                <br> <br>
+
+                {#            <div id="stats">#}
+                {#                <div class="detail-items"><h4>International Friendly? </h4> <h4 class="info"> 96% </h4> <h4#}
+                {#                        class="info"></h4></div>#}
+                {#                <div class="detail-items"><h4>Scam? </h4> <h4 class="info"> 0%</h4>  <h4 class="info"></h4>#}
+                {#                </div>#}
+                {#            </div>#}
+
+
+                <h4>Description</h4>
+                <div id="description-section">
+
+                    <p id="description">
+                        {{ property.description }}
+                    </p>
+                </div>
+
+
+            </div>
+
+
+            <!--The other part of the website is review and roommates-->
+            <div id="review-section">
+                <h3 id="review-section-title">Review and Roommates</h3>
+
+                <!--            Filter options-->
+                {#                <div id="filter">#}
+                {#            <label for="filtered">-options"></label>#}
+                {#                    <select name="filter-options" id="filter-options">#}
+                {#                        <option value="filter-finding-roommates">Finding Roommates</option>#}
+                {#                        <option value="filter-international-friendly">International Friendly</option>#}
+                {#                    </select>#}
+                {#                </div>#}
+
+                {#                {% for comment in property.comments.all %}#}
+                {##}
+                {#                    <div class="review">#}
+                {#                        <a href="#">{{ comment.poster }}</a>#}
+                {#                        <img class="star" src={% static "img/star-solid.svg" %} alt="star"> {{ comment.rating }}#}
+                {#                        <p>{{ comment.content }}</p>#}
+                {#                        <h4>International Friendly? {% if comment.international_friendly %}Yes#}
+                {#                        {% else %}NO#}
+                {#                        {% endif %} </h4>#}
+                {#                        <h4>Finding a roommate?  {% if comment.finding_rm %}Yes#}
+                {#                        {% else %}NO#}
+                {#                        {% endif %}</h4>#}
+                {#                    </div>#}
+                {##}
+                {#                    <hr>#}
+                {##}
+                {##}
+                {#                {% endfor %}#}
+
+                <div id="commentsSection">
+
+                    {% for comment in comments %}
+
+                        <div class="review">
+                            <div id="urlContainer" data-profile-url="{% url 'users:profile' 'USERNAME' %}">
+                                <a href="{% url 'users:profile' comment.user.username %}">{{ comment.user.username }}</a>
+                            </div>
+                            <h5 id="dateString">Date posted: {{ comment.date_posted|naturaltime }}</h5>
+
+                            <img class="star" src={% static "img/star-solid.svg" %} alt="star"> {{ comment.rating }}
+                            <p>{{ comment.content }}</p>
+                            <h4>International Friendly? {% if comment.international_friendly %}Yes
+                            {% else %}NO
+                            {% endif %} </h4>
+                            <h4>Finding a roommate?  {% if comment.finding_rm %}Yes
+                            {% else %}NO
+                            {% endif %}</h4>
+
+
+                        </div>
+
+                        {% if request.session.role == 'admin' or request.session.username == comment.user.username %}
+                            <form class="delete-form" method="POST"
+                                  action="{% url "nova:delete-comment" property.id comment.id %}">
+                                {% csrf_token %}
+                                <input type="submit" class="delete-btn"
+                                       value="Delete">
+                            </form>
+{#                            <button class="delete-btn" data-comment-id="{{ comment.id }}" data-ajax-url="{% url "nova:delete-comment" %}">Delete</button>#}
+
+
+
+                                <button class="edit-btn">Edit</button>
+                            </a>
+                            {#'<int:property_id>/comments/<int:comment_id>/edit'#}
+                        {% endif %}
+
+                        <hr>
+
+
+
+                    {% endfor %}
+                </div>
+
+
+            </div>
+
+        </div>
+
+{#        <div id="commentsSection">#}
+{#            <!-- Existing comments will be here -->#}
+{#        </div>#}
+
+
+
+        {% if request.session.username %}
+            <h3>Comment Poster: {{ request.session.username }}</h3>
+            <form id="comment-form">
+                <label>Rating: </label>
+                <select name="add-rating" id="rating" required>
+                    <option value=5> 5</option>
+                    <option value=4> 4</option>
+                    <option value=3> 3</option>
+                    <option value=2> 2</option>
+                    <option value=1> 1</option>
+                </select> <br>
+                <label>Is this property friendly to international student?</label>
+                <select name="add-international-friendly" id="add-international-friendly" required>
+                    <option value=True> Yes</option>
+                    <option value=False> No</option>
+
+                </select> <br>
+                <label>Currently finding roommates in this building?</label>
+                <select name="add-finding-rm" id="add-finding-rm" required>
+                    <option value=True> Yes</option>
+                    <option value=False> No</option>
+
+                </select> <br>
+
+
+                <textarea rows="8" cols="50" name="comment-text" placeholder="Write your comment..."></textarea> <br>
+
+                <input type="hidden" id="property-id" name="property-id" value="{{ property.id }}">
+                <input type="hidden" id="comment-poster" name="comment-poster" value="{{ request.session.username }}">
+                <input type="submit" id="post-comment-input" value="Post Comment" data-property-id="{{ property.id }}"
+                       data-ajax-url="{% url "nova:post-comment" %}">
+
+                {% csrf_token %}
+            </form>
+
+        {% else %}
+            <h2>You must log in to post a review!</h2>
+
+        {% endif %}
+
+
+    </div>
+
+    {#    </div>#}
+{% endblock %}

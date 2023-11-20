@@ -1,0 +1,66 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Profile for {{ user.username }} {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href={% static "css/profile.css" %}>
+    <h2 id="section-heading">Profile for {{ user.username }}</h2>
+
+    <form action="{% url 'users:edit-profile' user.username %}" method="post">
+        {% csrf_token %}
+     <button type="submit">Save</button>
+
+
+
+
+    <dl>
+    <dt>Username</dt>
+    <dd>{{ user.username }}</dd>
+    <dt>*Email address</dt>
+    <dd><label>
+        <input type="email" id="edit-email" name="edit-email" value="{{ user.email }}" required/>
+    </label></dd>
+        <dt>First Name</dt>
+    <dd><label>
+        <input type="text" id="edit-first-name" name="edit-first-name" value="{{ user.first_name }}" />
+    </label></dd>
+        <dt>Last Name</dt>
+    <dd><label>
+        <input type="text" id="edit-last-name" name="edit-last-name" value="{{ user.last_name }}" />
+    </label></dd>
+        <dt>Email Subscription</dt>
+    <dd><label>
+        <input type="radio" id="edit-subscription" name="edit-subscription" value="True" {% if user.details.subscription %}checked{% endif %} />
+        Subscribe to email news
+    </label>
+    <label>
+        <input type="radio" id="edit-subscription" name="edit-subscription" value="False" {% if not user.details.subscription %}checked{% endif %} />
+        Do not subscribe to email news
+    </label></dd>
+    {% if request.session.role == 'admin' %}
+
+    <dt>Role</dt>
+    <dd><label>
+        <input type="radio" id="edit-role-regular" name="edit-role" value="regular" {% if user.details.role == 'regular' %}checked{% endif %} />
+        User
+    </label>
+    <label>
+        <input type="radio" id="edit-role-admin" name="edit-role" value="admin" {% if user.details.role == 'admin' %}checked{% endif %} />
+        Admin
+    </label></dd>
+     {% endif %}
+
+    {% if request.session.username == user.username  %}
+    <dt>*Change Password</dt>
+    <dd>
+        <label for="edit-password">Type your Original Password or New Password</label>
+        <input type="password" id="edit-password" name="edit-password"  required />
+    </dd>
+
+  {% endif %}
+
+    </dl>
+     </form>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Properties {% endblock %}
+
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href={% static "css/list.css" %}>
+
+
+    <div class="sorting-links">
+        <!-- Add sorting tabs/buttons -->
+        <a href="?sort=availability">Sort by Availability</a>
+        <a href="?sort=rent_cost">Sort by Rent Cost</a>
+        <a href="?sort=house_name">Sort by Name</a>
+
+    </div>
+
+
+{#    <div id="image-description"></div>#}
+    {#    {% if messages %}#}
+    {#        <ul class="messages">#}
+    {#            {% for message in messages %}#}
+    {#                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+    {#            {% endfor %}#}
+    {#        </ul>#}
+    {#    {% endif %}#}
+    <div id="properties">
+
+
+
+        {#        <div id="sort">#}
+        {#            <label for="sort-options">Sorted By </label>#}
+        {#            <select name="sort-options" id="sort-options">#}
+        {#                <option value="newest">Newest</option>#}
+        {#                <option value="costs">Costs</option>#}
+        {#            </select>#}
+        {##}
+        {#        </div>#}
+        {% if not properties %}
+            <h3>There are no properties right now</h3>
+        {% else %}
+            {% for property in properties %}
+                <div class="property">
+                    <div class="house-image-section">
+                        <!--the pictures of the houses are from a website for free, public accessible photos https://unsplash.com/s/photos/house-->
+                        <img data-description="{{ property.finding_rm }} people are finding a roommate in this property"
+                             class="building-img"
+                             src="{{ property.photo.url }}"
+                             alt="building"/>
+
+
+                        {% if request.session.role == 'admin' %}
+                            <form class="delete-form" method="POST"
+                                  action="{% url "nova:delete-property" property.id %}">
+                                {% csrf_token %}
+                                <input type="submit" class="delete-btn"
+                                       onclick="return confirm('Are you sure you want to delete this property?');"
+                                       value="Delete">
+                            </form>
+                        {% endif %}
+
+                        <a class="view-more-link" href="{% url "nova:property-detail" property.id %}">
+                            <button class="view-more-btn">View More</button>
+                        </a>
+
+                    </div>
+
+
+                    <div class="basic-info">
+{#                        {% if request.session.username %}#}
+{##}
+{#                            <img class="wish-icon" src="{% static  "img/heart-plus.svg" %}" alt="heart"/>#}
+{#                        {% endif %}#}
+
+                        <h3 class="house-title"> {{ property.house_name }}</h3>
+
+                        <p class="address"> {{ property.address }}</p>
+                        <hr>
+
+                        <p>{{ property.rent_cost }}/month</p>
+                        <hr>
+                        <p>{{ property.bedrooms_count }} Beds, {{ property.bathrooms_count }} Baths, {{ property.size }}
+                            Sq
+                            Ft</p>
+                        <hr>
+                        <p class="date">Posted date: {{ property.date_posted|naturaltime }}</p>
+                        <hr>
+
+                        {% if property.is_verified %}
+                            <p class="verify"><img src={% static "img/badge_check_icon.svg" %} class="badge"
+                                                   alt="badge"/> Verified  </p>
+                        {% else %}
+                            <p class="verify"><img src={% static "img/badge_no_check_icon.svg" %} class="badge"
+                                                   alt="badge"/> Not Verified  </p>
+                        {% endif %}
+
+                        <p class="rating"><img src={% static "img/star-solid.svg" %} class="star"
+                                               alt="star"/>  {{ property.average_rating|floatformat:1 }}</p> |
+                        <h4 class="availability">{% if property.availability %}
+                            Open
+                        {% else %}
+                            Full
+                        {% endif %} </h4>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+    </div>
+
+{% endblock %}

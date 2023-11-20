@@ -1,0 +1,38 @@
+{%  extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href={% static "css/home.css" %}>
+{# <h3>Hello!</h3>#}
+{#    <h3>Having trouble in finding houses as an international students?</h3>#}
+{#    <h3>Don't worry! you are in the right place</h3>#}
+    <!--The logo is made from a free logo making website https://www.canva.com/create/logos/-->
+    <img src={% static "img/logo.png"%} alt="logo"/>
+    <div id="title-and-interaction">
+        <h1>NoVA Renting for International Students</h1>
+        <p>Assist International students in renting homes and finding roommates in Northern Virginia</p>
+        <div id="sign-up-section">
+            <h2>Finding the home and pursue your dream today</h2>
+            <a href="{% url "users:register" %}">
+                     <button class="sign-up-in-button">Sign Up and Start Now</button>
+                </a>
+
+
+        </div>
+
+        <div id="sign-in-section">
+            <hr>
+            <h2>Already have an account?</h2>
+            <a href="{% url "users:log-in-page" %}">
+                    <button class="sign-up-in-button">Sign in</button>
+                </a>
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

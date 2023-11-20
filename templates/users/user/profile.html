@@ -1,0 +1,34 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Profile for {{ user.username }} {% endblock %}
+{% load static %}
+
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href={% static "css/profile.css" %}>
+    <h2 id="section-heading">Profile for {{ user.username }}</h2>
+    {% if request.session.username == user.username or request.session.role == 'admin'%}
+
+    <button class="btn" onclick="location.href='{% url 'users:edit-profile' user.username %}';">Edit Profile</button>
+ {% endif %}
+    <dl>
+    <dt>Username</dt>
+    <dd>{{ user.username }}</dd>
+    <dt>Email address</dt>
+    <dd>{{ user.email }}</dd>
+        <dt>First Name</dt>
+    <dd>{{ user.first_name }}</dd>
+        <dt>Last Name</dt>
+    <dd>{{ user.last_name }}</dd>
+        <dt>Email Subscription</dt>
+    <dd>{% if user.details.subscription %} Subscribed to the email news{% else %} Not subscribing to the email news{% endif %}</dd>
+    <dt>Role</dt>
+    <dd>{{ user.details.role }}</dd>
+
+    </dl>
+
+
+
+
+    {#    </div>#}
+    <center>{% include "actions/action/feed.html" %}</center>
+{% endblock %}

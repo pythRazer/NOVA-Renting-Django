@@ -1,0 +1,48 @@
+/* Hide the subtitle and logo if small window*/
+
+h3, img {
+    display: none;
+}
+
+/*Center text in the page*/
+#content {
+    text-align: center;
+}
+
+#sign-in-section, #sign-up-section {
+    margin-top: 50px;
+    margin-button: 50px;
+}
+
+/* Separate sign up, sign in*/
+hr {
+    width: 70%;
+}
+
+#footer {
+    margin-top: 100px;
+}
+
+/* For this page, change the style when width is 600px*/
+@media all and (min-width: 600px) {
+    /*Show the subtitle*/
+    h3 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sign-up-in-button {
+        font-size: 28px;
+    }
+
+    /* Horizontally aline if the window is big enough*/
+    #title-and-interaction {
+        display: inline-block;
+        position: relative;
+        top: -80px;
+    }
+    /* Show the logo*/
+    img {
+        display: inline-block;
+    }
+}

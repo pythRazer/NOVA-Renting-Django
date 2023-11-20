@@ -1,0 +1,19 @@
+#login-section {
+  overflow: hidden;
+  /*position: absolute;*/
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center; /*centers items on the line (the x-axis by default)*/
+  align-items: center; /*centers items on the cross-axis (y by default)*/
+    margin-bottom: 80px;
+    margin-top: 150px;
+
+}
+
+#login-box{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+}

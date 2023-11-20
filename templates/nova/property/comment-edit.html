@@ -1,0 +1,64 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+ <link rel="stylesheet" type="text/css" href={% static "css/comment-edit.css" %}>
+
+    {% if request.session.username %}
+
+        <form id="edit-comment-form" action="{% url "nova:edit-comment" property.id comment.id%}" method="post">
+         <h3>Comment from: {{ comment.user.username }}</h3>
+            <label>Rating: </label>
+            <select name="edit-rating" id="edit-rating" required>
+                <option value="5"{% if comment.rating == 5 %} selected{% endif %}>5</option>
+                <option value="4"{% if comment.rating == 4 %} selected{% endif %}>4</option>
+                <option value="3"{% if comment.rating == 3 %} selected{% endif %}>3</option>
+                <option value="2"{% if comment.rating == 2 %} selected{% endif %}>2</option>
+                <option value="1"{% if comment.rating == 1 %} selected{% endif %}>1</option>
+            </select> <br>
+         <label>Is this property friendly to international student?</label>
+            <select name="edit-international-friendly" id="edit-international-friendly" required>
+                {% if comment.international_friendly == False %}
+                    <option value="True">Yes</option>
+                    <option value="False" selected>No</option>
+                {% else %}
+                    <option value="True" selected>Yes</option>
+                    <option value="False"> No</option>
+                {% endif %}
+
+
+            </select> <br>
+            <label>Currently finding roommates in this building?</label>
+            <select name="edit-finding-rm" id="edit-finding-rm" required>
+                {% if comment.finding_rm == False %}
+                    <option value="True">Yes</option>
+                    <option value="False" selected>No</option>
+                {% else %}
+                    <option value="True" selected>Yes</option>
+                    <option value="False"> No</option>
+                {% endif %}
+
+
+
+            </select> <br>
+
+
+
+
+            <textarea rows="8" cols="50" name="edit-comment-text" placeholder="Write your comment...">{{ comment.content }}</textarea> <br>
+
+            <input type="hidden" id="property-id" name="property-id" value="{{ property.id }}">
+            <input type="hidden" id="comment-poster" name="comment-poster" value="{{ request.session.username }}">
+            <input type="submit" id="edit-comment-input" value="Edit Comment"
+                   >
+
+            {% csrf_token %}
+        </form>
+
+    {% else %}
+        <h2>You must log in to Edit a review!</h2>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+/*Position of the form and size*/
+form{
+    width: 80%;
+    padding: 30px;
+}
+
+button{
+    max-width: 100px;
+}
+
+input{
+    width: 90px;
+}
+
+#address{
+    width: 100%;
+}
+#house-name{
+    width: 50%;
+}
+
+/*Change the text area position if the window size is bigger*/
+@media all and (min-width: 500px) {
+
+#detail{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+}
+
+}

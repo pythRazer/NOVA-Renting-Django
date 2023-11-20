@@ -1,0 +1,70 @@
+{%  extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href={% static "css/list.css" %}>
+    <link rel="stylesheet" type="text/css" href={% static "css/search.css"%}>
+<h1> Search Result </h1>
+
+    <div id="search-failed-messages">
+
+        <h2> Sorry, couldn't find a matched property,</h2>
+        <h2> Please search for another keyword! </h2>
+    </div>
+
+
+    <div id="search-success">
+
+        <h2> Here are the search result for "wonderful"</h2>
+
+
+        <div id="properties">
+
+
+
+
+
+        <div class="property">
+
+            <div class="house-image-section">
+<!--the pictures of the houses are from a website for free, public accessible photos https://unsplash.com/s/photos/house-->
+{#                <img class="building-img" src={% static "img/../../../nova/media/houses/wonderful-land-tysons-building.jpg" %}#}
+{#                     alt="wonderful-land-tysons-building"/>#}
+                <a class="view-more-link" href="detail.html"><button class="view-more-btn">View More</button></a>
+            </div>
+
+
+            <div class="basic-info">
+                <h3 class="house-title"> Wonderful Land</h3>
+                <p class="address"> 7575, Cherries Rd., Tysons, VA 22181</p>
+                <hr>
+
+                <!--                <img alt="star" src="img/star-solid.svg"/>-->
+                <!--                <img alt="star" src="img/badge_check_icon.svg"/>-->
+                <p>$2000/month</p>
+                <hr>
+                <p>2 Beds, 1 Baths, 950 Sq Ft</p>
+
+
+                <hr>
+                <p class="date">2023 Aug 30</p>
+                <hr>
+                <p class="verify"><img src={% static "img/badge_check_icon.svg"%} class="badge" alt="badge"/> Verified | </p>
+                <p class="rating"><img src={% static "img/star-solid.svg"%} class="star" alt="star"/> 4.2</p> |
+                <h4 class="availability">Open</h4>
+            </div>
+
+            <div class="info-detail">
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div>
+{% endblock %}

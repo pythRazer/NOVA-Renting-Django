@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NoVA Renting | {% block page-title %}{% endblock %} </title>
+    <link rel="stylesheet" type="text/css" href={% static "css/responsive.css" %}>
+
+    <script src={% static "js/jquery-3.7.1.min.js" %}></script>
+    <script src={% static "js/script.js" %}></script>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<div id="header">
+
+
+    <div id="logo-box">
+        <!--        The logo is made from a free logo making website https://www.canva.com/create/logos/-->
+{#        {% if  request.session.username%}#}
+{#            <a href="{% url 'nova:user-home' %}"><img id="logo" alt="logo" src={% static "img/logo.png"%}/></a>#}
+{#        {% else %}#}
+             <a href="{% url 'nova:home-page' %}"><img id="logo" alt="logo" src={% static "img/logo.png"%}/></a>
+{#        {% endif %}#}
+
+        <div id="title-box">
+            <h1>NoVA Renting</h1>
+            <h2>A site for helping international student</h2>
+
+        </div>
+
+
+        <!-- Search Bar -->
+
+
+    </div>
+
+
+    <div class="search-bar-div">
+        <form action="{% url "nova:search-result" %}" class="search-box" method="get">
+
+            <input type="text" name="search-property" class="search-bar" placeholder="Enter a property name"/>
+
+            <!--             Search bottom -->
+            <button type="submit" name="submit" value="Go" class="search-button">
+                <img class="search-icon" src={% static "img/search-icon.svg"%} alt="Search" width="24" height="24"/>
+            </button>
+
+        </form>
+    </div>
+
+
+
+
+
+    <!--    nav bar -->
+    <div id="primary-nav">
+{#    {% if request.session.username %}#}
+{#        <a href="{% url "nova:user-home" %}">Home</a>#}
+{#    {% else %}#}
+        <a href="{% url "nova:home-page" %}" class="nav-link-home">Home</a>
+{#    {% endif %}#}
+
+
+
+        <a href="{% url "nova:properties-list" %}" class="nav-link-list">List</a>
+{#    {% if request.session.username %}#}
+        <a href="{% url "nova:post-property-page" %}" class="nav-link-post">Post</a>
+{#    {% else %}#}
+{#        <a href="{% url "nova:log-in-page" %}">Post</a>#}
+{#    {% endif %}#}
+
+        <a href="{% url "nova:about" %}" class="nav-link-about">About</a>
+        {% if request.session.username %}
+            <a href="{% url 'users:profile' request.session.username%}">(<strong>{{ request.session.username }}</strong>) Profile </a>
+               <a href="{% url 'users:logout'%}"> Log Out </a>
+
+        {% else %}
+         <a href="{% url "users:log-in-page" %}"  class="nav-link-login">Log In</a>
+        {% endif %}
+    </div>
+
+
+</div> <!-- #header -->
+
+
+
+
+<div id="content">
+{% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% block content %}{% endblock %}
+
+
+</div>
+
+
+<div id="footer">
+
+
+
+    <p id="footer-nav">
+{#        {% if  request.session.username%}#}
+{#            <a href="{% url 'nova:user-home' %}">Home</a>#}
+{#        {% else %}#}
+             <a href="{% url 'nova:home-page' %}">Home</a>
+{#        {% endif %}#}
+        | <a href="{% url 'nova:properties-list' %}">List</a> | <a  href="{% url "nova:about" %}">About</a> |
+        <a href="#">Contact Us</a></p>
+    <p id="copyright">Copyright 2023 RICHVA Inc.</p>
+
+</div>
+
+
+</body>
+</html>

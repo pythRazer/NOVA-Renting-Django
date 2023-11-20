@@ -1,0 +1,87 @@
+{% load humanize %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href={% static "css/feed.css" %}>
+<h3>Recent Activity</h3>
+
+<ul>
+    {% for action in actions %}
+
+        {% if action.verb == "deleted the house" %}
+              {% if action.user.username == request.session.username %}
+                  <li>You {{ action.verb }} named {{ action.deleted_house_name }} ({{ action.created|naturaltime }})</li>
+                    {% else %}
+                  <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} named {{ action.deleted_house_name }} ({{ action.created|naturaltime }})</li>
+                       {% endif %}
+
+        {% endif %}
+        {% if action.target != null %}
+
+
+        {% if action.verb  == "posted a new review" %}
+            {% if action.user.username == request.session.username %}
+                <li>You {{ action.verb }} on  "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% else %}
+                 <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} on your "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+            {% endif %}
+
+            {% elif action.verb == "edited the review"%}
+            {% if action.user.username == request.session.username %}
+                <li>You {{ action.verb }} on  "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% else %}
+                 <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} on your "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% endif %}
+
+            {% elif action.verb == "deleted the review"%}
+            {% if action.user.username == request.session.username %}
+                 <li>You {{ action.verb }} on "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% else %}
+                <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} on your "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% endif %}
+
+
+
+
+
+            {% elif action.verb == "posted a new house"%}
+            {% if action.user.username == request.session.username %}
+                <li>You {{ action.verb }} named "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% else %}
+                 <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} named "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% endif %}
+
+
+            {% elif action.verb == "edited the house title"%}
+             {% if action.user.username == request.session.username %}
+                 <li>You {{ action.verb }} for "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                 {% else %}
+                 <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} for "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                 {% endif %}
+
+             {% elif action.verb == "edited the house description"%}
+            {% if action.user.username == request.session.username %}
+                 <li>You {{ action.verb }} for "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% else %}
+                 <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} for "<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>" ({{ action.created|naturaltime }})</li>
+                {% endif %}
+
+{#            {% elif action.verb == "deleted the house"%}#}
+{#            <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} named "{{ action.target }}" ({{ action.created|naturaltime }})</li>#}
+               {% elif action.verb == "changed the role of"%}
+            {% if action.user.username == request.session.username %}
+                <li>You {{ action.verb }} <a href="{% url 'users:profile' username=action.target.username %}">{{ action.target }}</a> ({{ action.created|naturaltime }})</li>
+                {% else %}
+                <li><a href="{% url 'users:profile' username=action.user.username %}">{{ action.user.username }}</a> {{ action.verb }} yours ({{ action.created|naturaltime }})</li>
+                {% endif %}
+
+        {% endif %}
+
+{% endif %}
+
+
+    {% empty %}
+
+        <li>No activity yet.</li>
+
+
+    {% endfor %}
+</ul>

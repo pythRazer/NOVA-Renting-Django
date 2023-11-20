@@ -1,0 +1,91 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href={% static "css/post.css" %}>
+    <h1>Edit for {{ property.house_name }}</h1>
+    <form id="post-a-house" action="{% url "nova:edit-property-page" property.id %}" method="post"
+          enctype="multipart/form-data">
+        <label for="house-name">*House name: </label> <input type="text" id="house-name" name="edit-house-name"
+                                                            placeholder="Name"
+                                                            value="{{ property.house_name }}"><br><br>
+        <label for="city">*City: </label>
+
+
+        <input type="text" id="city" name="edit-city" placeholder="City" value="{{ property.city }}"><br><br>
+
+
+        <label for="zip-code">*Zip Code: </label> <input type="number" id="zip-code" name="edit-zip-code"
+                                                        placeholder="00000" value="{{ property.zip_code }}"><br><br>
+        <label for="address">*Address Line: </label> <input type="text" id="address" name="edit-address"
+                                                           placeholder="Enter you full address"
+                                                           value="{{ property.address }}"><br><br>
+        <label for="unit">*Apartment or Unit: </label> <input type="number" id="unit" name="edit-unit" placeholder="999"
+                                                             value="{{ property.unit }}"><br><br>
+        <label for="floor">*Floor: </label> <input type="number" id="floor" name="edit-floor" placeholder="1"
+                                                  value="{{ property.floor }}"><br><br>
+
+        *<label for="bedrooms-count">*Bedrooms count: </label><input type="number" id="bedroom-count"
+                                                                    name="edit-bedrooms-count" placeholder="1"
+                                                                    value="{{ property.bedrooms_count }}"><br><br>
+
+
+        <label for="bathrooms-count">*Bathrooms count: </label><input type="number" id="bathrooms-count"
+                                                                      name="edit-bathrooms-count" placeholder="1"
+                                                                      value="{{ property.bathrooms_count }}"><br><br>
+
+        <label for="size">*Size: </label> <input type="number" id="size" name="edit-size" placeholder="0"
+                                                value="{{ property.size }}"> Sq Ft<br><br>
+        <label for="rent-cost">*Rent Cost: </label> <input type="number" id="rent-cost" name="edit-rent-cost"
+                                                          placeholder="0" value="{{ property.rent_cost }}"> $<br><br>
+        <label for="initial-fee">*Initial Fee: </label> <input type="number" id="initial-fee" name="edit-initial-fee"
+                                                              placeholder="0" value="{{ property.initial_fee }}">
+        $<br><br>
+
+        <label for="availability">*Availability: </label>
+        <select name="edit-availability" id="availability">
+
+
+            {% if property.availability == False %}
+                <option value="True"> Available</option>
+                <option value="False" selected> Not Available</option>
+            {% else %}
+                <option value="True" selected> Available</option>
+                <option value="False"> Not Available</option>
+            {% endif %}
+        </select> <br><br>
+
+
+
+            <label class="review-section-label">Current Image</label><br>
+            <img src="{{ property.photo.url }}" alt="{{ property.house_name }}" style="width: 200px; height: auto;"><br><br>
+ <label class="review-section-label">New Image</label>
+            <input type="file" id="photo" onchange="displayFileName()" name="edit-photo"><span
+                id="file-name"></span><br><br>
+
+        <br>
+
+
+        <div id="detail">
+            <label for="description">Description and Detail</label>
+
+            <textarea id="description" name="edit-description" rows="7" cols="40">{{ property.description }}</textarea>
+
+        </div>
+
+
+        <input type="submit" name="submit" value="Edit">
+
+        <input type="hidden" name="edit-poster" value="{{ request.session.username }}">
+
+
+        <button onclick="location.href='{% url "nova:properties-list" %}';" type="button" class="cancel-btn">Cancel
+        </button>
+        {% csrf_token %}
+    </form>
+
+
+{% endblock %}

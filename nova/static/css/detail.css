@@ -1,0 +1,276 @@
+/*There are three window view mode, with min-width 500px, and min-width: 1097px*/
+p#description {
+    font-size: 14px;
+    text-align: justify;
+}
+
+/* Make the view center*/
+div#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 40px 40px 120px 40px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.badge {
+    position: relative;
+    top: 5px;
+}
+
+.verify {
+    float: left;
+    display: inline-block;
+}
+div#description-section{
+    width: auto;
+}
+.wish-icon {
+    width: 20px;
+    height: 20px;
+    /*float: right;*/
+    /*margin-top: 5px;*/
+    /*margin-right: 5px;*/
+}
+
+/*.main-image{*/
+/*    display: block;*/
+/*    width: 50%;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+
+
+/*}*/
+.availability {
+
+    color: purple;
+    display: inline-block;
+    margin-left: 30px;
+}
+
+/* Use color and different formatting to separate with the first part*/
+div#second-part {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+    text-align: center;
+    background-color: #24c47e;
+    clear: both;
+    width: 360px;
+    margin: 0 auto
+}
+
+/*.sorting-links {*/
+/*    display: flex;*/
+/*    !*flex-direction: row; !* Makes links appear vertically *!*!*/
+/*    !*margin-bottom: 20px;*!*/
+/*    width: 320px;*/
+/*    justify-content: center;*/
+/*    margin: 0 auto*/
+
+/*    !*margin-top: 100px;*!*/
+/*    !*margin-left: 100px;*!*/
+/*}*/
+
+
+
+/* Grid for making 3 X 2 images*/
+div#house-images-section {
+
+    display: inline-grid;
+
+    grid-template-columns: repeat(3, 100px); /* 3 columns */
+
+    .star, .badge {
+        width: 12px;
+    }
+
+    /*Leave some spaces between images*/
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+
+}
+
+
+.info {
+    color: blue;
+}
+
+#finding-roommate-message {
+
+    color: rgba(184, 3, 250, 0.56);
+}
+
+/*section, h1 {*/
+/*    padding: 0 1em;*/
+/*}*/
+
+#review-section-title {
+    text-align: center;
+}
+
+.detail-items {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+
+div#house-detail-section h4 {
+    line-height: 1px;
+}
+
+/*Review section contains different format, color*/
+div#review-section {
+    /*position: relative;*/
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    margin: 20px auto;
+    line-height: 1.6;
+    text-align: justify;
+    background-color: #b7b2e7;
+    /*float: left;*/
+    width: 360px;
+    font-size: 14px;
+    clear: both;
+
+}
+
+
+
+.star {
+    width: 14px;
+    margin-left: 12px;
+}
+
+#filter-options {
+
+    background-color: #b7b2e7;
+    float: right;
+}
+
+
+div#house-images-section img {
+
+    width: 100px;
+    height: 100px;
+
+    float: left;
+    display: inline-block;
+}
+
+#house-name {
+    color: blue;
+
+}
+
+div#house-images-section {
+         display: inline-block;
+          text-align: center;
+        /*grid-template-columns: repeat(3, 250px); !* 3 columns, make image bigger *!*/
+    }
+
+
+    div#house-images-section img {
+
+        width: 350px;
+        height: 350px;
+
+    }
+
+
+/* Make images bigger when we have enough space*/
+/*@media all and (min-width: 500px) {*/
+
+/*    div#house-images-section {*/
+/*        grid-template-columns: repeat(3, 150px); !* 3 columns, make image bigger *!*/
+/*    }*/
+
+
+/*    div#house-images-section img {*/
+
+/*        width: 150px;*/
+/*        height: 150px;*/
+
+/*    }*/
+/*}*/
+
+
+@media all and (min-width: 540px) {
+
+    div#second-part, div#review-section {
+
+        width: 500px;
+    }
+}
+
+
+
+
+/*Make images bigger, and the detail list in different format for utilizing the space*/
+@media all and (min-width: 1043px) {
+
+
+
+    div#second-part, div#review-section {
+
+
+        width: 1000px;
+
+    }
+
+    div#costs-related {
+
+        display: inline-block;
+
+        float: left;
+
+    }
+
+    div#room-related {
+        position: absolute;
+        left: 300px;
+    }
+
+    /*!*Different format for utilizing the space*!*/
+    /*div#info{*/
+    /*    display: flex;*/
+    /*}*/
+    /*div#second-part {*/
+    /*    position: relative;*/
+
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    flex: 0 0 70%;*/
+    /*    align-items: unset;*/
+    /*    line-height: 1.6;*/
+    /*    text-align: left;*/
+    /*    background-color: #24c47e;*/
+    /*    float: unset;*/
+    /*    !*float: left;*!*/
+    /*    !*width: 70%;*!*/
+    /*}*/
+
+    /*!* Review section will be the width of 27%, to be able to go to the right side*!*/
+
+    /*div#review-section {*/
+    /*    margin-top: 0;*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    flex: 0 0 28%;*/
+    /*    !*width: 28%;*!*/
+    /*    margin-left: 20px;*/
+    /*    float: unset;*/
+
+    /*}*/
+
+
+}
+
+

@@ -1,0 +1,91 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Detail {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href={% static "css/post.css" %}>
+    <form id="post-a-house" action="{% url "nova:post-property-page" %}" enctype="multipart/form-data" method="post">
+        <p>* = required</p>
+        <label for=" house-name">*House name: </label>
+        <input type="text" id="house-name" name="add-house-name" placeholder="Name" required><br><br>
+        <label for="city">*City: </label>
+
+        {#    <select name="city" id="city" required>#}
+        {#        <option value="falls-church">Falls Church</option>#}
+        {#        <option value="tysons">Tysons</option>#}
+        {#    </select> <br><br>#}
+        <input type="text" id="city" name="add-city" placeholder="City"><br><br>
+
+
+        <label for="zip-code">*Zip Code: </label>
+        <input type="number" id="zip-code" name="add-zip-code" placeholder="00000" required><br><br>
+        <label for="address">*Address Line: </label>
+        <input type="text" id="address" name="add-address" placeholder="Enter you full address" required><br><br>
+        <label for="unit">*Apartment or Unit: </label> <input type="number" id="unit" name="add-unit"
+                                                             placeholder="999" required><br>
+        <br>
+        <label for="floor">*Floor: </label> <input type="number" id="floor" name="add-floor" placeholder="1"
+                                                   required><br><br>
+        <label for="bedrooms-count">*Bedrooms count: </label><input type="number" id="bedroom-count"
+                                                                    name="add-bedrooms-count" placeholder="1"
+                                                                    required><br><br>
+        {#    <label for="bedrooms-count">*Bedrooms count: </label>#}
+        {#    <select name="add-bedrooms-count" id="bedrooms-count" required>#}
+        {#        <option value="1"> 1</option>#}
+        {#        <option value="2"> 2</option>#}
+        {#        <option value="3"> 3</option>#}
+        {#    </select>      <br><br>#}
+
+        {#    <label for="bathrooms-count">*Bathrooms count: </label>#}
+        {#    <select name="add-bathrooms-count" id="bathrooms-count" required>#}
+        {#        <option value="1"> 1</option>#}
+        {#        <option value="1.5"> 1.5</option>#}
+        {#        <option value="2"> >2</option>#}
+        {#        <option value="2.5"> >2.5</option>#}
+        {#        <option value="3"> >3</option>#}
+        {#    </select>      <br><br>#}
+        <label for="bathrooms-count">*Bathrooms count: </label><input type="number" id="bathrooms-count"
+                                                                      name="add-bathrooms-count" placeholder="1"
+                                                                      required><br><br>
+        <label for="size">*Size: </label> <input type="number" id="size" name="add-size" placeholder="0" required> Sq Ft<br><br>
+        <label for="rent-cost">*Rent Cost: </label>
+        <input type="number" id="rent-cost" name="add-rent-cost" placeholder="0" required> $<br><br>
+        <label for="initial-fee">*Initial Fee: </label>
+        <input type="number" id="initial-fee" name="add-initial-fee" placeholder="0" required> $<br><br>
+
+        <label for="availability">*Availability: </label>
+        <select name="add-availability" id="availability" required>
+            <option value=True> Available</option>
+            <option value=False> Not Available</option>
+
+        </select> <br><br>
+
+        {#    <label>Photo: </label>#}
+        {#    <button type="button">Upload</button><br><br>#}
+        <label for="photo">*Photo: </label>
+        <input type="file" id="photo" name="add-photo" onchange="displayFileName()" required><span id="file-name"></span><br><br>
+
+
+        <div id="detail">
+            <label for="description">Description and Detail</label>
+
+            <textarea id="description" name="add-description" rows="7" cols="40"
+            ></textarea>
+
+        </div>
+
+
+        <input type="submit" name="submit" value="Submit">
+
+        <input type="hidden" name="add-poster" value="{{ request.session.username }}">
+        <button onclick="location.href='{% url "nova:properties-list" %}';" type="button" class="cancel-btn">Cancel
+        </button>
+
+
+        {% csrf_token %}
+    </form>
+
+
+{% endblock %}

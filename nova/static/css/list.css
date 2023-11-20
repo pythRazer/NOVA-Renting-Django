@@ -1,0 +1,243 @@
+
+.building-img {
+    width: 160px;
+    height: 200px;
+    display: block;
+}
+
+#adv-search-btn {
+    float: right;
+
+    color: grey;
+
+}
+
+.delete-form {
+    clear: both;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+    width: 60px;
+
+}
+
+.triangle-down-icon {
+    width: 12px;
+    height: 12px;
+
+}
+
+.address {
+    line-height: 12px;
+}
+
+.sorting-links {
+    display: flex;
+    /*flex-direction: row; !* Makes links appear vertically *!*/
+    /*margin-bottom: 20px;*/
+    width: 320px;
+    justify-content: center;
+    margin: 0 auto
+
+    /*margin-top: 100px;*/
+    /*margin-left: 100px;*/
+}
+
+.sorting-links a {
+    /*text-decoration: none; !* Removes the underline from links *!*/
+    /*padding: 8px 16px; !* Adds some padding around the links *!*/
+    margin-bottom: 8px; /* Space between links */
+    background-color: #f4f4f4; /* Light gray background color */
+    border: 1px solid #ddd; /* Border around links */
+    border-radius: 4px; /* Rounded corners */
+    font-size: larger;
+    text-align: center;
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+.sorting-links a:hover {
+    background-color: #e0e0e0; /* Darker gray background on hover */
+}
+
+.availability {
+    font-style: italic;
+    color: #414aa6;
+}
+
+.star, .badge {
+    width: 12px;
+}
+
+.verify, .rating, .availability {
+    display: inline-block;
+    margin-top: 1px;
+}
+
+div#sort {
+    float: left;
+    width: 200px;
+
+}
+
+
+div#content {
+    clear: left;
+}
+
+.basic-info {
+
+    display: inline-block;
+    font-size: 13px;
+    line-height: 0;
+
+}
+
+
+.info-detail {
+    display: none
+}
+
+div#properties {
+    width: 100%;
+    list-style-type: none;
+    height: 500px;
+}
+
+.property {
+    display: flex;
+    flex-direction: row;
+
+    vertical-align: top;
+    height: 200px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    float: left;
+    max-height: 500px;
+    background-color: #24c47e;
+
+    .house-image-section {;
+        position: relative;
+        width: 200px;
+    }
+
+    .delete-btn {
+        background-color: red;
+        color: white;
+        text-align: center;
+        border-radius: 20px;
+        flex-shrink: 0;
+        font-size: 14px;
+
+    }
+
+    .view-more-btn {
+        font-family: "Lao MN", serif;
+        text-align: center;
+        border-radius: 20px;
+        color: white;
+        background: #414aa6;
+        font-size: 14px;
+        flex-shrink: 0;
+        position: absolute;
+        bottom: 10px;
+
+    }
+}
+
+.house-title {
+    color: #414aa6;
+    font-size: larger;
+}
+
+div #image-description {
+    width: 100%;
+    text-align: center;
+    /*margin-bottom: 20px;*/
+    /*margin-top: 50px;*/
+
+}
+
+
+.wish-icon {
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+@media all and (min-width: 500px) {
+
+    div#properties {
+        width: 90%;
+        list-style-type: none;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+
+        .property {
+            border: 1px solid blue;
+            vertical-align: top;
+            height: 300px;
+            width: 500px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            float: left;
+            max-height: 500px;
+            background-color: #24c47e;
+        }
+
+        .property h3 {
+            font-size: 24px;
+        }
+
+        .property p, & h4 {
+            font-size: 18px;
+            line-height: 16px;
+        }
+
+        .building-img {
+            width: 190px;
+            height: 300px;
+        }
+    }
+
+    .wish-icon {
+        width: 25px;
+        height: 25px;
+
+    }
+
+    .wish-notification {
+        margin-top: 1px;
+    }
+
+
+}
+
+
+@media all and (min-width: 1056px) {
+
+
+    div#properties {
+        width: 1100px;
+        margin: auto;
+        height: 80%;
+        display: grid;
+        grid-template-columns: 500px 300px;
+        grid-row: auto;
+        grid-column-gap: 50px;
+        grid-row-gap: 50px;
+    }
+
+
+}
+
+
+

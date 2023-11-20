@@ -1,0 +1,172 @@
+{% extends "nova/base.html" %}
+{% block page-title %} Home (Logged In) {% endblock %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/home-logged-in.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/list.css" %}">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="welcome-section"><h1 id="welcome-message">Welcome Back, {{ request.session.username }}</h1>
+
+    </div>
+
+    <div class="lists-wrapper">
+        <!--     First part will be the home you posted   -->
+        <div id="properties-posted">
+            <h2 class="home-post-title">The Home You Posted</h2>
+
+
+            {% for property in properties %}
+
+                {#                <h1>{{ property.house_name}}</h1>#}
+                {% if property.poster == request.session.username %}
+                    <div class="property">
+                        <div class="house-image-section">
+
+                            <div class="edit-delete-bar">
+
+                                <a class="edit-link" href="{% url "nova:edit-property-page" property.id %}">
+                                    <button class="edit-btn">Edit</button>
+                                </a>
+                                <form class="delete-form" method="POST"
+                                  action="{% url "nova:delete-property" property.id %}">
+                                {% csrf_token %}
+                                <input type="submit" class="delete-btn"
+                                       onclick="return confirm('Are you sure you want to delete this property?');"
+                                       value="Delete">
+                            </form>
+
+                            </div>
+
+                            <!--the pictures of the houses are from a website for free, public accessible photos https://unsplash.com/s/photos/house-->
+                            <img data-description="{{ property.finding_rm }} people are finding a roommate in this property"
+                                 class="building-img"
+                                 src="{{ property.photo.url }}"
+                                         alt="building"/>
+
+
+                            <a class="view-more-link" href="{% url "nova:property-detail" property.id %}">
+                                <button class="view-more-btn">View More</button>
+                            </a>
+
+
+
+
+
+                        </div>
+
+
+                        <div class="basic-info">
+
+                            <h3 class="house-title"> {{ property.house_name }}</h3>
+
+                            <p class="address"> {{ property.address }}</p>
+                            <hr>
+
+                            <p>{{ property.rent_cost }}/month</p>
+                            <hr>
+                            <p>{{ property.bedrooms_count }} Beds, {{ property.bathrooms_count }}
+                                Baths, {{ property.size }} Sq
+                                Ft</p>
+                            <hr>
+                            <p class="date">Posted date: {{ property.date_posted|naturaltime }}</p>
+                            <hr>
+                             {% if property.is_verified %}
+                            <p class="verify"><img src={% static "img/badge_check_icon.svg" %} class="badge"
+                                                   alt="badge"/> Verified  </p>
+                        {% else %}
+                            <p class="verify"><img src={% static "img/badge_no_check_icon.svg" %} class="badge"
+                                                   alt="badge"/> Not Verified  </p>
+                        {% endif %}
+
+                       |
+
+                            <h4 class="availability">
+                                {% if property.availability %}
+                                Open
+                            {% else %}
+                                Full
+                            {% endif %} </h4>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+        <!--     Second part will be the home you put into the wish list   -->
+{#        <div id="properties-wished">#}
+{##}
+{#            <h2 class="wish-list-title">Your Wish List</h2>#}
+{##}
+{#            <!--            Each block contain a property-->#}
+{#            {% for property in properties %}#}
+{#                {% if property.wished == request.session.username %}#}
+{#                    <div class="property">#}
+{#                        <div class="house-image-section">#}
+{#                            <!--the pictures of the houses are from a website for free, public accessible photos https://unsplash.com/s/photos/house-->#}
+{#                            <img data-description="{{ property.finding_rm }} people are finding a roommate in this property"#}
+{#                                 class="building-img"#}
+{#                                 src="{{ property.photo.url }}"#}
+{#                                         alt="building"/>#}
+{##}
+{##}
+{#                            <a class="view-more-link" href="{% url "nova:property-detail" property.id %}">#}
+{#                                <button class="view-more-btn">View More</button>#}
+{#                            </a>#}
+{##}
+{#                        </div>#}
+{#                        <div class="basic-info">#}
+{##}
+{#                            <h3 class="house-title"> {{ property.house_name }}</h3>#}
+{##}
+{#                            <p class="address"> {{ property.address }}</p>#}
+{#                            <hr>#}
+{##}
+{#                            <p>{{ property.rent_cost }}/month</p>#}
+{#                            <hr>#}
+{#                            <p>{{ property.bedrooms_count }} Beds, {{ property.bathrooms_count }}#}
+{#                                Baths, {{ property.size }} Sq#}
+{#                                Ft</p>#}
+{#                            <hr>#}
+{#                            <p class="date">{{ property.date_posted }}</p>#}
+{#                            <hr>#}
+{#                            <p class="verify"><img src={% static "img/badge_check_icon.svg" %} class="badge"#}
+{#                                                   alt="badge"/> {{ property.is_verified }} | </p>#}
+{#                            <p class="rating"><img src={% static "img/star-solid.svg" %} class="star"#}
+{#                                                   alt="star"/> {{ property.rating }}</p> |#}
+{#                            <h4 class="availability">{% if property.availability %}#}
+{#                                Open#}
+{#                            {% else %}#}
+{#                                Full#}
+{#                            {% endif %} </h4>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
+{##}
+{##}
+{#            {% endfor %}#}
+{##}
+{#        </div>#}
+
+     <div id="properties-wished">
+     {% include "actions/action/feed.html" %}
+     </div>
+
+{% endblock %}
+{#{% block sidebar %}#}
+{#   #}
+{#{% endblock %}#}
