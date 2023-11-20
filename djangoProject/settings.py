@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-n^35!+vv&e8-zc3gbx1!v13p@=g2pq_6ltcwh*xm4)e-ydq1kx"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['cs5774proj6nova-fc3c90a702cd.herokuapp.com', '127.0.0.1']
 MEDIA_URL = 'media/'
